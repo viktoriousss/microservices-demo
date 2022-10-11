@@ -320,15 +320,6 @@ spec:
     port: 80
     targetPort: 8080
 ---
-apiVersion: v1
-kind: Service
-metadata: 
-  name: order-service
-spec:
-  ports:
-    - appProtocol: http
-      number: 3000
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
