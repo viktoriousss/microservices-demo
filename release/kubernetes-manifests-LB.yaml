@@ -304,8 +304,8 @@ spec:
           - name: AD_SERVICE_ADDR
             value: "adservice:9555"
           # # ENV_PLATFORM: One of: local, gcp, aws, azure, onprem, alibaba
-          # # When not set, defaults to "local" unless running in GKE, otherwies auto-sets to gcp 
-          # - name: ENV_PLATFORM 
+          # # When not set, defaults to "local" unless running in GKE, otherwies auto-sets to gcp
+          # - name: ENV_PLATFORM
           #   value: "aws"
           - name: DISABLE_TRACING
             value: "1"
@@ -564,6 +564,8 @@ spec:
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
+      imagePullSecrets:
+      - name: regcred
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
       restartPolicy: Always
@@ -591,7 +593,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: busybox:latest
+        image: gcr.io/google-containers/busybox:latest
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -782,7 +784,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: redis:alpine
+        image: gcr.io/google-containers/redis
         ports:
         - containerPort: 6379
         readinessProbe:
@@ -803,6 +805,8 @@ spec:
           requests:
             cpu: 70m
             memory: 200Mi
+      imagePullSecrets:
+      - name: regcred
       volumes:
       - name: redis-data
         emptyDir: {}
