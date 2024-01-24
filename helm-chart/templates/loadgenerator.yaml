@@ -80,7 +80,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: http://gcr.io/google-containers/busybox:latest
+        image: gcr.io/google-containers/busybox:latest
         env:
         - name: FRONTEND_ADDR
           value: "{{ .Values.frontend.name }}:80"
